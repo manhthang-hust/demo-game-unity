@@ -5,40 +5,28 @@ using UnityEngine;
 
 public class Player : Mover
 {
-    
+    private SpriteRenderer spriteRenderer;
 
-    public Animator anim;
-
-    //public bool alive;
-    public bool beaten;
     private Vector3 move;
-    
-
-    //public int damagePoint = 1;
     private float cooldown = 1f;
     private float lastSwing;
-    private float lastBite;
     public float Speed;
-    //public float attackRange;
-    //public RaycastHit2D hitmonster;
 
     public SwordAttack swordAttack;
-    public float HP = 5f;
+    public float HP;
     public bool alive = true;
-    
+    public int gameActive = 0;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         if (move == Vector3.zero) Speed = 0; else Speed = 1;
-        anim.SetFloat("Speed", Speed);
-        anim.SetBool("Beaten", beaten);
-        anim.SetBool("Alive", alive);
     }
 
     // Update is called once per frame
@@ -51,10 +39,6 @@ public class Player : Mover
         float a = Input.GetAxisRaw("Attack");
 
         move = new Vector3(x, y, 0);
-        
-        
-
-        
 
         // Death
         if (HP > 0)
@@ -64,58 +48,35 @@ public class Player : Mover
         else
         {
             alive = false;
-            //rigid.simulated = false;
         }
 
-
+        if (alive == false && gameActive == 0)
+        {
+            GameManager.instance.ShowText("GAME OVER", 20, Color.red, transform.position, Vector3.up * 25, 1.5f);
+            gameActive = 1;
+        }
 
         // Attack
         if (a == 1)
         {
-            if(Time.time - lastSwing > cooldown)
+            if (Time.time - lastSwing > cooldown)
             {
 
                 lastSwing = Time.time;
-                Swing();
+                Swing();  
             }
         }
-
-
-        anim.SetFloat("Attack", a);
-
-
-
-        //Beaten
-        beaten = false;
-        //if (ReceiveDamage != null)
-
-
     }
-
-
-    //protected override void Death()
-    //{
-        
-    //}
-
-    //protected override void ReceiveDamage(Damage dmg)
-    //{
-    //    base.ReceiveDamage(dmg);
-
-    //}
-
 
     public void Swing()
     {
-        
+
         //Debug.Log("Swing");
         if (rightDirection == false)
         {
             swordAttack.attackDirection = SwordAttack.AttackDirection.left;
             //Debug.Log("Attack left");
             swordAttack.AttackLeft();
-            
-
         }
         else
         {
@@ -129,30 +90,6 @@ public class Player : Mover
         swordAttack.StopAttack();
     }
 
-
-
-    public float damageMonster = 1f;
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.tag == "Enemy")
-        {
-            // deal damage
-            
-            Enemy enemy = other.GetComponent<Enemy>();
-
-            if (enemy != null)
-            {
-                if (Time.time - lastBite > cooldown)
-                {
-                    //Debug.Log("bite");
-                    lastBite = Time.time;
-                    HP -= damageMonster;
-                    beaten = true;
-                }
-            }
-
-        }
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Heal")
@@ -163,13 +100,20 @@ public class Player : Mover
 
             if (heal != null)
             {
-                if (HP < 5)
+                if (HP < 20)
                 {
-                    HP = 5;
+                    HP += 10;
+                    GameManager.instance.ShowText(" + 10 HP", 20, Color.blue, transform.position, Vector3.up * 10, 1.5f);
                 }
             }
 
         }
+    }
+
+    public void swapSprite(int skinId)
+    {
+        GetComponent<SpriteRenderer>().sprite = GameManager.instance.playerSprites[skinId];
+        if (skinId == 1) HP += 20;
     }
 }
 

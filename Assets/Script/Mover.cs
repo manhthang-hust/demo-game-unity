@@ -45,7 +45,7 @@ public abstract class Mover : Fighter
 
         hit = Physics2D.Raycast(transform.position, moveDelta, distance);
 
-        if (hit.collider == null || hit.collider.tag == "Enemy")
+        if (hit.collider == null || hit.collider.tag != "Collision")
         {
             //Move
             transform.Translate(0, moveDelta.y * Time.fixedDeltaTime * 2, 0);

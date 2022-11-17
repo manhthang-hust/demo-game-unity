@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class SwordAttack : MonoBehaviour
 {
-    public float damage = 1f;
+    public Animator anim;
+    public int[] damage = { 1, 2, 3, 4, 5};
+    public bool hit = false;
+    public int weaponLevel = 0;
+    public SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     public enum AttackDirection
     {
         left, right
@@ -18,12 +28,13 @@ public class SwordAttack : MonoBehaviour
 
     private void Start()
     {
-        
+        anim = GetComponent<Animator>();
         rightattackOffset = transform.position;
     }
 
     public void Attack()
     {
+        
         switch (attackDirection)
         {
             case AttackDirection.left:
@@ -38,12 +49,12 @@ public class SwordAttack : MonoBehaviour
     public void AttackRight()
     {
         swordCollider.enabled = true;
-        //transform.position = rightattackOffset;
+        anim.SetTrigger("Swing");
     }
     public void AttackLeft()
     {
         swordCollider.enabled = true;
-        //transform.position = new Vector3(rightattackOffset.x * -1, rightattackOffset.y);
+        anim.SetTrigger("Swing");
     }
     public void StopAttack()
     {
@@ -52,19 +63,26 @@ public class SwordAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("Collide");
         if (other.tag == "Enemy")
         {
-            //Debug.Log("colide enemy");
-            // deal damage
             Enemy enemy = other.GetComponent<Enemy>();
 
             if (enemy != null)
             {
-                //Debug.Log("damage enemy");
-                enemy.Health -= damage;
+                enemy.Health -= damage[weaponLevel];
+                hit = true;
             }
-
         }
+    }
+
+    public void UpgradeWeapon()
+    {
+        weaponLevel++;
+        spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
+    }
+    public void SetWeaponLevel(int level)
+    {
+        weaponLevel = level;
+        spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
     }
 }

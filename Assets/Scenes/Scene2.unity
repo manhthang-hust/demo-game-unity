@@ -1440,10 +1440,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightDirection: 1
-  boxCollider: {fileID: 0}
+  boxCollider: {fileID: 224544500}
   distance: 0
-  rigid: {fileID: 0}
+  rigid: {fileID: 224544498}
   xpValue: 1
+  damageMonster: 0
   triggerLenght: 5
   chaseLenght: 5
   filter:
@@ -1462,7 +1463,6 @@ MonoBehaviour:
     maxNormalAngle: 0
   hitbox: {fileID: 0}
   health: 2
-  damageMonster: 1
 --- !u!61 &224544500
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1567,7 +1567,7 @@ GameObject:
   - component: {fileID: 572644897}
   m_Layer: 8
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Collision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3896,10 +3896,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightDirection: 1
-  boxCollider: {fileID: 0}
+  boxCollider: {fileID: 1012134919}
   distance: 0
-  rigid: {fileID: 0}
+  rigid: {fileID: 1012134917}
   xpValue: 1
+  damageMonster: 0
   triggerLenght: 5
   chaseLenght: 5
   filter:
@@ -3918,7 +3919,6 @@ MonoBehaviour:
     maxNormalAngle: 0
   hitbox: {fileID: 0}
   health: 2
-  damageMonster: 1
 --- !u!61 &1012134919
 BoxCollider2D:
   m_ObjectHideFlags: 0
