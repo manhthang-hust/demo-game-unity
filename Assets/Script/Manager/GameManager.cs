@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     // Upgrade Weapon
     public bool TryUpgradeWeapon()
     {
-        if (weapon.weaponLevel == 4)
+        if (weapon.weaponLevel == 3)
             return false;
 
         if (weaponPrices.Count <= weapon.weaponLevel)

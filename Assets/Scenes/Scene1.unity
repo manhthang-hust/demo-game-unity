@@ -13365,14 +13365,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0afa8dbf3d2614d138d5aac1ac81147d, type: 3}
   - {fileID: 21300000, guid: df44dc25428ab4b62a274de5d109752b, type: 3}
   - {fileID: 0}
-  weaponPrices: 64000000c80000002c0100009001000000000000
+  weaponPrices: c80000002c010000900100000000000000000000
   xpTable: 
   player: {fileID: 0}
   weapon: {fileID: 0}
   floatingTextManger: {fileID: 740562213}
-  HUD: {fileID: 87124976}
   canvasManager: {fileID: 1709624268}
-  characterMenu: {fileID: 1769858557}
   equippedWeapon: {fileID: 0}
   equippedWeaponState: []
   pesos: 0
